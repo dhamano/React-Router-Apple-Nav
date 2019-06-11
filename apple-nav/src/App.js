@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import MainNav from './components/MainNav';
+import SubNav from './components/SubNav';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Route } from 'react-router-dom';
+
+export default class App extends Component {
+  state = {
+    navList: ["Mac","iPad","iPhone","Watch","TV","Music","Support","Search","Cart"],
+    subNavList: {
+      Mac     : ["MacBook", "MacBook Air", "MacBook Pro", "iMac"],
+      iPad    : ["iPad Pro", "iPad Air", "iPad", "iPad mini"],
+      iPhone  : ["iPhone Xs", "iPhone Xr", "iPhone 8", "iPhone 7"],
+      Watch   : ["Apple Watch Series 4", "Apple Watch Nike+", "Apple Watch Hermes"],
+      TV      : ["Apple TV app", "Apple TV+", "Apple TV 4K", "Apple TV HD"],
+      Music   : ["Apple Music", "iTunes", "HomePod", "AirPods", "iPod touch"]
+    },
+    selected: ''
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Route path="/" render={ props => <MainNav {...props} navList={this.state.navList} />} />
+        <Route path="/:subNavName" render={ props => <SubNav {...props} subNavList={this.state.subNavList} />} />
+      </div>
+    );
+  }
 }
-
-export default App;
